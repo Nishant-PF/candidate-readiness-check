@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A 15-minute self-taken screen covering communication, interests and aptitude, weighted equally, built for PeriFerry placement candidates.">
+<title>Candidate Readiness Check</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --ground:#F5F6FB; --surface:#FFFFFF; --surface-2:#EDF0F8; --line:#DCE1F0; --line-soft:#E9ECF6;
+  --ink:#141B31; --ink-2:#4B5675; --ink-3:#7C86A4;
+  --navy:#1F3C7E; --purple:#5046B6; --magenta:#C8469E;
+  --good:#0F7355; --good-bg:#E2F3EC; --warn:#9E6206; --warn-bg:#FAEEDA; --crit:#B03A2B; --crit-bg:#FBE7E3;
+  --on-accent:#FFFFFF;
+  --shadow:0 1px 2px rgba(20,27,49,.06), 0 8px 24px -16px rgba(20,27,49,.28);
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1120; --surface:#141B2E; --surface-2:#1C2540; --line:#28324F; --line-soft:#212B45;
+    --ink:#E9ECF7; --ink-2:#A7B1CD; --ink-3:#78829F;
+    --navy:#87A6EA; --purple:#9E95F2; --magenta:#E98AC7;
+    --good:#48C39A; --good-bg:#10352B; --warn:#E2A945; --warn-bg:#382B12; --crit:#F0806E; --crit-bg:#3A1F1B;
+    --on-accent:#0C1120;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1120; --surface:#141B2E; --surface-2:#1C2540; --line:#28324F; --line-soft:#212B45;
+  --ink:#E9ECF7; --ink-2:#A7B1CD; --ink-3:#78829F;
+  --navy:#87A6EA; --purple:#9E95F2; --magenta:#E98AC7;
+  --good:#48C39A; --good-bg:#10352B; --warn:#E2A945; --warn-bg:#382B12; --crit:#F0806E; --crit-bg:#3A1F1B;
+  --on-accent:#0C1120;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3", system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.ui{font-family:"Poppins", system-ui, sans-serif; text-wrap:balance}
+h1,h2,h3,h4{margin:0; font-weight:600; letter-spacing:-.01em}
+.mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--purple); outline-offset:2px; border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- chrome ---------- */
+.topbar{
+  position:sticky; top:0; z-index:20; background:var(--surface);
+  border-bottom:1px solid var(--line); display:flex; align-items:center;
+  gap:20px; padding:12px 22px; flex-wrap:wrap;
+}
+.brand{display:flex; align-items:baseline; gap:10px; margin-right:auto}
+.brand .mark{font-family:"Poppins",sans-serif; font-weight:700; font-size:17px; color:var(--navy); letter-spacing:-.02em}
+.brand .sep{width:1px; height:16px; background:var(--line); display:inline-block; transform:translateY(2px)}
+.brand .tool{font-family:"Poppins",sans-serif; font-weight:500; font-size:14px; color:var(--ink-2)}
+.tabs{display:flex; gap:4px; background:var(--surface-2); padding:3px; border-radius:8px}
+.tab{
+  border:0; background:transparent; padding:6px 14px; border-radius:6px;
+  font-family:"Poppins",sans-serif; font-size:13.5px; font-weight:500; color:var(--ink-2);
+}
+.tab[aria-selected="true"]{background:var(--surface); color:var(--navy); box-shadow:var(--shadow)}
+
+main{max-width:920px; margin:0 auto; padding:26px 22px 80px}
+.wide{max-width:1180px}
+
+/* ---------- generic ---------- */
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
+.eyebrow{
+  font-family:"Poppins",sans-serif; font-size:11px; font-weight:600; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3);
+}
+.lede{color:var(--ink-2); max-width:64ch}
+.btn{
+  border:1px solid transparent; background:var(--navy); color:var(--on-accent); padding:10px 20px;
+  border-radius:8px; font-family:"Poppins",sans-serif; font-weight:500; font-size:14.5px;
+  text-decoration:none; display:inline-block;
+}
+.btn:disabled{opacity:.4; cursor:not-allowed}
+.btn.ghost{background:transparent; border-color:var(--line); color:var(--ink-2)}
+.btn.quiet{background:var(--surface-2); border-color:var(--line); color:var(--ink)}
+.row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+
+/* ---------- intro ---------- */
+.intro-head{display:grid; gap:10px; margin-bottom:22px}
+.intro-head h1{font-size:30px}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0; margin:22px 0 26px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--surface)}
+.spec > div{padding:16px 18px; border-right:1px solid var(--line-soft); display:grid; gap:5px; align-content:start}
+.spec > div:last-child{border-right:0}
+.spec .n{font-family:"Poppins",sans-serif; font-weight:600; font-size:15px}
+.spec .d{font-size:13.5px; color:var(--ink-2); line-height:1.45}
+.spec .w{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--magenta); letter-spacing:.04em}
+form.detail{display:grid; gap:14px; padding:20px; border-radius:var(--r)}
+.field{display:grid; gap:6px}
+.field label{font-family:"Poppins",sans-serif; font-size:13px; font-weight:500; color:var(--ink-2)}
+.field input, .field select{
+  font:inherit; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+  background:var(--ground); color:var(--ink); width:100%;
+}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px}
+
+/* ---------- progress ---------- */
+.progress{display:flex; gap:8px; margin-bottom:24px}
+.seg{flex:1; display:grid; gap:7px}
+.seg .bar{height:4px; border-radius:2px; background:var(--line)}
+.seg .lb{font-family:"Poppins",sans-serif; font-size:12px; font-weight:500; color:var(--ink-3)}
+.seg.done .bar{background:var(--good)} .seg.done .lb{color:var(--ink-2)}
+.seg.now .bar{background:var(--magenta)} .seg.now .lb{color:var(--ink)}
+
+/* ---------- questions ---------- */
+.qhead{display:grid; gap:6px; margin-bottom:18px}
+.qhead h2{font-size:22px}
+.qlist{display:grid; gap:14px}
+.q{padding:18px 20px; border-radius:var(--r); display:grid; gap:12px}
+.q .stem{display:grid; gap:8px}
+.q .num{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+.q .txt{font-size:16.5px; line-height:1.45}
+.q .passage{
+  border-left:3px solid var(--purple); padding:10px 0 10px 14px; color:var(--ink-2);
+  font-size:15px; background:linear-gradient(90deg, var(--surface-2), transparent 70%);
+}
+.opts{display:grid; gap:8px}
+.opt{
+  display:flex; gap:11px; align-items:flex-start; padding:10px 13px; border:1px solid var(--line);
+  border-radius:8px; cursor:pointer; background:var(--ground); transition:border-color .12s, background .12s;
+}
+.opt:hover{border-color:var(--purple)}
+.opt input{margin:4px 0 0; accent-color:var(--purple); flex:none}
+.opt.sel{border-color:var(--purple); background:var(--surface-2)}
+.opt span{font-size:15px; line-height:1.4}
+.scale{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+.scale .opt{flex-direction:column; align-items:flex-start; gap:6px}
+.scale .opt .k{display:block; margin-bottom:2px; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); letter-spacing:.05em}
+@media(max-width:640px){.scale{grid-template-columns:repeat(2,1fr)}}
+.navrow{display:flex; justify-content:space-between; align-items:center; margin-top:22px; gap:12px}
+.count{font-size:13.5px; color:var(--ink-3)}
+.count.warn{color:var(--warn)}
+
+/* ---------- score ---------- */
+.scorewrap{display:grid; gap:18px}
+.composite{padding:24px; border-radius:var(--r); display:flex; gap:26px; align-items:center; flex-wrap:wrap}
+.dial{flex:none}
+.composite .meta{display:grid; gap:6px}
+.composite .meta h2{font-size:26px}
+.pills{display:flex; gap:8px; flex-wrap:wrap}
+.pill{
+  font-family:"Poppins",sans-serif; font-size:12px; font-weight:500; padding:4px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+.pill.good{background:var(--good-bg); color:var(--good)}
+.pill.warn{background:var(--warn-bg); color:var(--warn)}
+.pill.crit{background:var(--crit-bg); color:var(--crit)}
+.pill.plain{background:var(--surface-2); color:var(--ink-2); border-color:var(--line)}
+.thirds{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px}
+.third{padding:18px; border-radius:var(--r); display:grid; gap:10px; border-top:3px solid var(--line)}
+.third.s0{border-top-color:var(--navy)} .third.s1{border-top-color:var(--magenta)} .third.s2{border-top-color:var(--purple)}
+.third .top{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.third .val{font-family:"IBM Plex Mono",monospace; font-size:27px; font-weight:500}
+.third .name{font-family:"Poppins",sans-serif; font-weight:600; font-size:14px}
+.third .note{font-size:13.5px; color:var(--ink-2); line-height:1.45}
+.meter{height:6px; border-radius:3px; background:var(--surface-2); overflow:hidden}
+.meter i{display:block; height:100%; border-radius:3px}
+.panel{padding:20px; border-radius:var(--r); display:grid; gap:14px}
+.panel h3{font-size:16px}
+.tracks{display:grid; gap:9px}
+.track{display:grid; grid-template-columns:1fr 132px 46px; gap:12px; align-items:center}
+.track .tn{font-size:15px}
+.track .tv{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-2); text-align:right}
+.riasec{display:flex; gap:8px; height:140px}
+.riasec .d{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:flex-end; gap:6px}
+.riasec .col{height:88px; background:var(--surface-2); border-radius:4px; position:relative; overflow:hidden}
+.riasec .col i{position:absolute; bottom:0; left:0; right:0; background:var(--purple); border-radius:4px; min-height:3px}
+.riasec .cap{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); text-align:center}
+.riasec .cap b{display:block; font-family:"Poppins",sans-serif; font-size:12px; color:var(--ink-2); font-weight:600}
+
+/* ---------- roster ---------- */
+.filters{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px}
+.filters input[type="search"], .filters select{
+  font:inherit; font-size:14px; padding:7px 11px; border-radius:8px; border:1px solid var(--line);
+  background:var(--surface); color:var(--ink);
+}
+.chips{display:flex; gap:4px; background:var(--surface-2); padding:3px; border-radius:8px}
+.chip{border:0; background:transparent; padding:5px 12px; border-radius:6px; font-family:"Poppins",sans-serif; font-size:13px; color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:var(--shadow)}
+.toggle{display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink-2); cursor:pointer}
+.toggle input{accent-color:var(--purple)}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:640px}
+th,td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--line-soft); font-size:14.5px; white-space:nowrap}
+th{font-family:"Poppins",sans-serif; font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+td .who{display:grid; gap:1px}
+td .who b{font-family:"Poppins",sans-serif; font-weight:600; font-size:14.5px}
+td .who span{font-size:12.5px; color:var(--ink-3)}
+.empty{padding:40px 22px; text-align:center; color:var(--ink-2); display:grid; gap:8px; justify-items:center}
+.demo-note{font-size:13px; color:var(--ink-3); margin:10px 2px 0}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--ink); color:var(--ground);
+  padding:10px 18px; border-radius:999px; font-family:"Poppins",sans-serif; font-size:13.5px; z-index:50;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width:600px){
+  html{-webkit-text-size-adjust:100%}
+  main{padding:18px 16px 64px}
+  .topbar{padding:10px 16px; gap:10px}
+  .brand{gap:8px}
+  .brand .tool{font-size:12.5px}
+  .tabs{gap:2px}
+  .tab{padding:8px 12px; font-size:13px}
+  .intro-head h1{font-size:23px}
+  .qhead h2{font-size:19px}
+  .composite{padding:20px; gap:18px}
+  .composite .meta h2{font-size:22px}
+  form.detail{padding:16px}
+  .field input, .field select{padding:11px 12px; font-size:16px}
+  .opt{padding:12px 13px}
+  .opt input{width:17px; height:17px}
+  .scale{gap:8px}
+  .chip{padding:8px 13px}
+  .filters{gap:8px}
+  .filters input[type="search"], .filters select{padding:10px 11px; font-size:16px; flex:1 1 140px}
+  .toggle{padding:6px 0}
+  .btn, .chip, .tab{touch-action:manipulation}
+
+  /* full-width, stacked calls to action are easier to hit with a thumb */
+  form.detail .row{flex-direction:column; align-items:stretch; gap:10px}
+  form.detail .row .btn{width:100%}
+  form.detail .row .count{text-align:left}
+  .panel .row{flex-direction:column; align-items:stretch}
+  .panel .row .btn{width:100%; text-align:center; padding:13px 20px}
+  .navrow{flex-wrap:wrap; row-gap:12px}
+  .navrow > .btn.ghost{order:2}
+  .composite{flex-direction:column; align-items:flex-start}
+  .thirds, .grid2{grid-template-columns:1fr}
+  .riasec{height:120px}
+  .riasec .col{height:70px}
+  .riasec .cap{font-size:9.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="mark">PeriFerry</span><span class="sep"></span><span class="tool">Candidate Readiness Check</span>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-take" aria-selected="true">Take the check</button>
+    <button class="tab" role="tab" id="tab-roster" aria-selected="false">Saved here</button>
+  </div>
+</div>
+
+<main id="main"></main>
+<footer style="max-width:920px;margin:0 auto;padding:0 22px 40px;color:var(--ink-3);font-size:12.5px;line-height:1.6">Runs entirely in your browser. Nothing is sent anywhere unless you tap Email or Copy — “Saved here” stays on this device only.</footer>
+<div id="toast" hidden class="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================ ITEM BANK ============================ */
+
+var COMM = [
+  { txt:"Read this and answer: <em>“From Monday the morning shift starts at 8:30 am instead of 9:00 am. Report to the floor supervisor 10 minutes before your shift.”</em> From Monday, what time should you be in front of the floor supervisor?",
+    passage:true,
+    opts:[{t:"8:20 am",s:3},{t:"8:30 am",s:1},{t:"8:50 am",s:0},{t:"9:00 am",s:0}] },
+  { txt:"Which message is clearest to send to a customer?",
+    opts:[{t:"“Your order will reach you on Friday.”",s:3},{t:"“Your order it will be reaching by Friday only.”",s:1},{t:"“Order reaching Friday.”",s:1},{t:"“Regarding the aforementioned order, delivery shall transpire Friday.”",s:0}] },
+  { txt:"A customer says their bill is wrong and is clearly annoyed. What do you say first?",
+    opts:[{t:"“I'm sorry about that — let me check the bill with you right now.”",s:3},{t:"“Please calm down first.”",s:1},{t:"“That's not my department.”",s:0},{t:"“The system made the mistake, not us.”",s:0}] },
+  { txt:"Your supervisor says: “Finish the stock count, then email me the sheet, and take your break only after that.” What do you do first?",
+    opts:[{t:"Finish the stock count",s:3},{t:"Ask a colleague to email the sheet",s:1},{t:"Email the sheet you have so far",s:0},{t:"Take the break, it is already late",s:0}] },
+  { txt:"You will be about 20 minutes late. Which message would you send your manager?",
+    opts:[{t:"“Good morning — I'm about 20 minutes late in traffic. I'll be in by 9:20.”",s:3},{t:"“Sorry sir kindly excuse today, traffic problem, extremely sorry for the inconvenience caused.”",s:1},{t:"“Stuck. Coming.”",s:1},{t:"Send nothing and explain when you arrive",s:0}] },
+  { self:true, txt:"Speaking English on a call with someone you have not met before.",
+    opts:[{t:"Not comfortable yet",s:0,k:"0"},{t:"Can manage a few lines",s:1,k:"1"},{t:"Comfortable for most calls",s:2,k:"2"},{t:"Fully comfortable",s:3,k:"3"}] },
+  { self:true, txt:"Writing a short work message or email in English.",
+    opts:[{t:"Not comfortable yet",s:0,k:"0"},{t:"With help or a template",s:1,k:"1"},{t:"On my own, most days",s:2,k:"2"},{t:"Fully comfortable",s:3,k:"3"}] },
+  { self:true, txt:"Speaking up in a room of ten or more people.",
+    opts:[{t:"I stay quiet",s:0,k:"0"},{t:"If asked directly",s:1,k:"1"},{t:"I join in",s:2,k:"2"},{t:"I'm happy to lead it",s:3,k:"3"}] }
+];
+
+var INT_SCALE = [
+  {t:"Not for me",k:"0"},{t:"Curious",k:"1"},{t:"Interested",k:"2"},{t:"This is what I want",k:"3"}
+];
+var INTEREST = [
+  { d:"R", txt:"Working with your hands — tools, stock, machines, vehicles — on your feet through the day." },
+  { d:"I", txt:"Working out why something isn't working, and testing fixes until it does." },
+  { d:"A", txt:"Designing, styling, decorating or making something people will see." },
+  { d:"S", txt:"Helping people directly — guiding, teaching, caring, supporting." },
+  { d:"E", txt:"Convincing people — selling, pitching, closing a deal, leading a small team." },
+  { d:"C", txt:"Keeping records exact — data entry, files, checklists, billing." },
+  { d:"S", txt:"Being the person a customer talks to when something has gone wrong." },
+  { d:"E", txt:"Running a counter or shop floor where you meet new people all day." }
+];
+
+var APT = [
+  { txt:"A shirt is priced ₹450. A 20% discount is applied at the counter. What does the customer pay?",
+    opts:[{t:"₹360",s:3},{t:"₹390",s:0},{t:"₹430",s:0},{t:"₹350",s:0}] },
+  { txt:"Your shift runs 2:00 pm to 10:30 pm with a 45-minute break. How long did you actually work?",
+    opts:[{t:"7 hours 45 minutes",s:3},{t:"8 hours 30 minutes",s:0},{t:"7 hours 15 minutes",s:0},{t:"8 hours 45 minutes",s:0}] },
+  { txt:"What comes next: 3, 6, 12, 24, __ ?",
+    opts:[{t:"48",s:3},{t:"36",s:0},{t:"30",s:0},{t:"42",s:0}] },
+  { txt:"5 packers pack 100 boxes in an hour. At the same rate, how many boxes will 8 packers pack in an hour?",
+    opts:[{t:"160",s:3},{t:"140",s:0},{t:"180",s:0},{t:"125",s:0}] },
+  { txt:"Everything on Rack B is fragile. The item in your hand is <em>not</em> fragile. What follows?",
+    opts:[{t:"It is not on Rack B",s:3},{t:"It is on Rack B",s:0},{t:"It must be on Rack A",s:0},{t:"Nothing can be said",s:0}] },
+  { txt:"Daily sales: Mon 12, Tue 18, Wed 9, Thu 21, Fri 15. On how many days were sales above the week's average?",
+    passage:true,
+    opts:[{t:"2 days",s:3},{t:"3 days",s:0},{t:"1 day",s:0},{t:"4 days",s:0}] },
+  { txt:"You are handed ₹500 and you spend ₹135 and then ₹248. How much is left?",
+    opts:[{t:"₹117",s:3},{t:"₹127",s:0},{t:"₹107",s:0},{t:"₹113",s:0}] },
+  { txt:"Three of these invoice numbers are identical. Which one is different?",
+    opts:[{t:"INV-2291-KO",s:3},{t:"INV-2291-KD",s:0},{t:"INV-2291-KD ",s:0},{t:"INV-2291-KD  ",s:0}] }
+];
+
+var SECTIONS = [
+  { id:"comm", name:"Communication", items:COMM,
+    blurb:"Five workplace situations, then three questions about your own comfort. There is no trick — answer the way you actually would." },
+  { id:"interest", name:"Interests", items:INTEREST,
+    blurb:"Eight kinds of work. Mark how much each one appeals to you. Nothing here is right or wrong." },
+  { id:"apt", name:"Aptitude", items:APT,
+    blurb:"Eight everyday numbers-and-logic questions. No calculator needed; take your time." }
+];
+
+var DIMS = [
+  {k:"R", n:"Realistic",     d:"Hands-on"},
+  {k:"I", n:"Investigative", d:"Problem-solving"},
+  {k:"A", n:"Artistic",      d:"Creative"},
+  {k:"S", n:"Social",        d:"People-facing"},
+  {k:"E", n:"Enterprising",  d:"Persuading"},
+  {k:"C", n:"Conventional",  d:"Organising"}
+];
+
+var TRACKS = [
+  {n:"Customer support / BPO",      p:["S","E"]},
+  {n:"Retail & front-of-store",     p:["E","R"]},
+  {n:"Hospitality & F&B",           p:["S","R"]},
+  {n:"IT support & data entry",     p:["C","I"]},
+  {n:"Logistics & warehouse",       p:["R","C"]},
+  {n:"Beauty & wellness",           p:["A","S"]},
+  {n:"Admin & back office",         p:["C","S"]}
+];
+
+var SAMPLES = [
+  {id:"x1", name:"Example — A. Rahman", city:"Chennai", createdAt:"2026-09-01T10:12:00.000Z", comm:83, interest:89, apt:75, composite:82, track:"Customer support / BPO", demo:true},
+  {id:"x2", name:"Example — K. Devi",   city:"Bengaluru", createdAt:"2026-09-01T12:40:00.000Z", comm:54, interest:78, apt:63, composite:65, track:"Retail & front-of-store", demo:true},
+  {id:"x3", name:"Example — S. Menon",  city:"Coimbatore", createdAt:"2026-08-31T09:05:00.000Z", comm:38, interest:67, apt:41, composite:49, track:"Logistics & warehouse", demo:true}
+];
+
+/* ============================ LOCAL HISTORY ============================ */
+
+var HISTORY_KEY = "pf_readiness_rows_v1";
+function loadHistory(){
+  try{ var raw = localStorage.getItem(HISTORY_KEY); return raw ? JSON.parse(raw) : []; }
+  catch(e){ return []; }
+}
+function saveHistory(rows){
+  try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(rows.slice(0,500))); }catch(e){}
+}
+
+/* ============================ STATE ============================ */
+
+var state = {
+  view:"intro", step:0,
+  cand:{name:"", contact:"", city:""},
+  ans:{comm:{}, interest:{}, apt:{}},
+  result:null, saved:false,
+  rows:loadHistory(),
+  filter:{q:"", band:"all", track:"all", sort:"date", detail:false}
+};
+var EMAIL_TO = "nishant@periferry.com";
+
+/* ============================ SCORING ============================ */
+
+function pct(sum, max){ return Math.round(sum / max * 100); }
+
+function score(){
+  var cs=0, as=0, i;
+  for(i=0;i<COMM.length;i++) cs += (state.ans.comm[i]!=null ? COMM[i].opts[state.ans.comm[i]].s : 0);
+  for(i=0;i<APT.length;i++)  as += (state.ans.apt[i]!=null ? APT[i].opts[state.ans.apt[i]].s : 0);
+
+  var vals=[], dim={R:0,I:0,A:0,S:0,E:0,C:0}, cnt={R:0,I:0,A:0,S:0,E:0,C:0};
+  for(i=0;i<INTEREST.length;i++){
+    var v = state.ans.interest[i]!=null ? state.ans.interest[i] : 0;
+    vals.push(v); dim[INTEREST[i].d]+=v; cnt[INTEREST[i].d]+=1;
+  }
+  var top3 = vals.slice().sort(function(a,b){return b-a}).slice(0,3);
+  var interest = pct(top3[0]+top3[1]+top3[2], 9);
+
+  var norm={};
+  for(i=0;i<DIMS.length;i++){ var k=DIMS[i].k; norm[k] = cnt[k] ? dim[k]/(3*cnt[k]) : 0; }
+
+  var tr = TRACKS.map(function(t){
+    return {n:t.n, v:Math.round((norm[t.p[0]]+norm[t.p[1]])/2*100)};
+  }).sort(function(a,b){ return b.v - a.v || a.n.localeCompare(b.n); });
+
+  var comm = pct(cs,24), apt = pct(as,24);
+  return {
+    comm:comm, interest:interest, apt:apt,
+    composite: Math.round((comm+interest+apt)/3),
+    norm:norm, tracks:tr
+  };
+}
+
+function band(v){ return v>=75 ? "good" : v>=50 ? "warn" : "crit"; }
+function bandName(v){ return v>=75 ? "Ready to place" : v>=50 ? "Developing" : "Needs support"; }
+function bandColor(v){ return v>=75 ? "var(--good)" : v>=50 ? "var(--warn)" : "var(--crit)"; }
+
+/* ============================ HELPERS ============================ */
+
+var main = document.getElementById("main");
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function toast(msg){
+  var t=document.getElementById("toast"); t.textContent=msg; t.hidden=false;
+  clearTimeout(toast._t); toast._t=setTimeout(function(){ t.hidden=true; }, 2600);
+}
+function answered(sec){
+  var items = SECTIONS[["comm","interest","apt"].indexOf(sec)].items;
+  var n=0; for(var i=0;i<items.length;i++) if(state.ans[sec][i]!=null) n++;
+  return n;
+}
+function setTab(){
+  document.getElementById("tab-take").setAttribute("aria-selected", state.view==="roster" ? "false":"true");
+  document.getElementById("tab-roster").setAttribute("aria-selected", state.view==="roster" ? "true":"false");
+  document.getElementById("main").className = state.view==="roster" ? "wide" : "";
+}
+
+/* ============================ VIEWS ============================ */
+
+function render(){
+  setTab();
+  if(state.view==="intro") return renderIntro();
+  if(state.view==="assess") return renderSection();
+  if(state.view==="result") return renderResult();
+  return renderRoster();
+}
+
+function renderIntro(){
+  main.innerHTML =
+    '<div class="intro-head">' +
+      '<span class="eyebrow">Placement screening · about 15 minutes</span>' +
+      '<h1>Where is this candidate ready, and where do they need support?</h1>' +
+      '<p class="lede">Three short sections, each worth exactly one third of the final score. Answer honestly — this is used to decide what training and which roles to line up, not to pass or fail anyone.</p>' +
+    '</div>' +
+    '<div class="spec">' +
+      SECTIONS.map(function(s,i){
+        return '<div><span class="w">Weight 33.3%</span><span class="n">' + (i+1) + '. ' + s.name + '</span><span class="d">' + s.blurb + '</span></div>';
+      }).join("") +
+    '</div>' +
+    '<form class="detail card" id="detail">' +
+      '<div class="field"><label for="f-name">Candidate name</label><input id="f-name" required autocomplete="off" value="' + esc(state.cand.name) + '" placeholder="Full name as on the ATS record"></div>' +
+      '<div class="grid2">' +
+        '<div class="field"><label for="f-contact">Phone or email</label><input id="f-contact" autocomplete="off" value="' + esc(state.cand.contact) + '" placeholder="Optional"></div>' +
+        '<div class="field"><label for="f-city">City</label><input id="f-city" autocomplete="off" value="' + esc(state.cand.city) + '" placeholder="Chennai, Bengaluru…"></div>' +
+      '</div>' +
+      '<div class="row" style="margin-top:4px"><button class="btn" type="submit">Start the check</button>' +
+      '<span class="count">Nothing is sent or saved until the last screen \u2014 you choose Email, Copy, or Save there.</span></div>' +
+    '</form>';
+
+  document.getElementById("detail").addEventListener("submit", function(e){
+    e.preventDefault();
+    state.cand.name = document.getElementById("f-name").value.trim();
+    state.cand.contact = document.getElementById("f-contact").value.trim();
+    state.cand.city = document.getElementById("f-city").value.trim();
+    if(!state.cand.name){ toast("Add the candidate's name first"); return; }
+    state.step=0; state.view="assess"; state.saved=false; render(); window.scrollTo(0,0);
+  });
+}
+
+function progressHTML(){
+  return '<div class="progress">' + SECTIONS.map(function(s,i){
+    var cls = i<state.step ? "seg done" : i===state.step ? "seg now" : "seg";
+    return '<div class="' + cls + '"><div class="bar"></div><div class="lb">' + (i+1) + '. ' + s.name + '</div></div>';
+  }).join("") + '</div>';
+}
+
+function renderSection(){
+  var sec = SECTIONS[state.step], key = sec.id, isInterest = key==="interest";
+  var html = progressHTML() +
+    '<div class="qhead"><span class="eyebrow">Section ' + (state.step+1) + ' of 3 · ' + sec.items.length + ' questions</span>' +
+    '<h2>' + sec.name + '</h2><p class="lede">' + sec.blurb + '</p></div><div class="qlist">';
+
+  for(var i=0;i<sec.items.length;i++){
+    var it = sec.items[i];
+    var opts = isInterest ? INT_SCALE : it.opts;
+    var cur = state.ans[key][i];
+    html += '<div class="q card"><div class="stem"><span class="num">' + (i+1<10?"0":"") + (i+1) + '</span>' +
+      '<div class="' + (it.passage ? "txt passage" : "txt") + '">' + it.txt + '</div></div>' +
+      '<div class="' + ((isInterest || it.self) ? "opts scale" : "opts") + '">';
+    for(var j=0;j<opts.length;j++){
+      var o = opts[j];
+      html += '<label class="opt' + (cur===j?" sel":"") + '" data-k="' + key + '" data-i="' + i + '" data-j="' + j + '">' +
+        '<input type="radio" name="' + key + '-' + i + '"' + (cur===j?" checked":"") + '>' +
+        (o.k!=null ? '<span><span class="k">LEVEL ' + o.k + '</span>' + esc(o.t) + '</span>' : '<span>' + o.t + '</span>') +
+        '</label>';
+    }
+    html += '</div></div>';
+  }
+
+  var n = answered(key), total = sec.items.length;
+  html += '</div><div class="navrow">' +
+    (state.step>0 ? '<button class="btn ghost" id="back">Back</button>' : '<span></span>') +
+    '<div class="row"><span class="count' + (n<total?" warn":"") + '" id="cnt">' + n + ' of ' + total + ' answered</span>' +
+    '<button class="btn" id="next"' + (n<total?" disabled":"") + '>' + (state.step===2 ? "See the score" : "Next section") + '</button></div></div>';
+
+  main.innerHTML = html;
+
+  main.querySelectorAll(".opt").forEach(function(el){
+    el.addEventListener("click", function(){
+      var k=el.dataset.k, i=+el.dataset.i, j=+el.dataset.j;
+      state.ans[k][i]=j;
+      el.parentNode.querySelectorAll(".opt").forEach(function(s){ s.classList.remove("sel"); });
+      el.classList.add("sel");
+      var nn = answered(k), c=document.getElementById("cnt");
+      c.textContent = nn + " of " + total + " answered";
+      c.className = "count" + (nn<total ? " warn":"");
+      document.getElementById("next").disabled = nn<total;
+    });
+  });
+  var b=document.getElementById("back");
+  if(b) b.addEventListener("click", function(){ state.step--; render(); window.scrollTo(0,0); });
+  document.getElementById("next").addEventListener("click", function(){
+    if(state.step===2){ state.result=score(); state.view="result"; }
+    else state.step++;
+    render(); window.scrollTo(0,0);
+  });
+}
+
+function dial(v){
+  var r=46, c=2*Math.PI*r, off=c*(1-v/100);
+  return '<svg class="dial" width="118" height="118" viewBox="0 0 118 118" role="img" aria-label="Composite score ' + v + ' out of 100">' +
+    '<circle cx="59" cy="59" r="' + r + '" fill="none" stroke="var(--surface-2)" stroke-width="10"></circle>' +
+    '<circle cx="59" cy="59" r="' + r + '" fill="none" stroke="' + bandColor(v) + '" stroke-width="10" stroke-linecap="round" ' +
+      'stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '" transform="rotate(-90 59 59)"></circle>' +
+    '<text x="59" y="60" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Mono, monospace" font-size="30" font-weight="500">' + v + '</text>' +
+    '<text x="59" y="78" text-anchor="middle" fill="var(--ink-3)" font-family="Poppins, sans-serif" font-size="10.5" letter-spacing="1">/ 100</text>' +
+  '</svg>';
+}
+
+function renderResult(){
+  var r = state.result, c = state.cand;
+  var notes = {
+    comm: r.comm>=75 ? "Reads instructions accurately and answers customers in the right register." :
+          r.comm>=50 ? "Gets the message across; tone and written English are the areas to coach." :
+                       "Start with the spoken-English and workplace-etiquette module before client-facing roles.",
+    interest: r.interest>=75 ? "Knows what they want — strong pull towards specific kinds of work." :
+              r.interest>=50 ? "Some clear preferences, but open across several tracks." :
+                               "No strong pull yet — a shadowing day or two would tell you more than this form.",
+    apt: r.apt>=75 ? "Comfortable with everyday numbers, sequencing and detail-checking." :
+         r.apt>=50 ? "Handles the basics; slips on multi-step arithmetic and close comparison." :
+                     "Numeracy and attention-to-detail practice before any billing or data role."
+  };
+  var vals=[r.comm, r.interest, r.apt], names=["Communication","Interests","Aptitude"], keys=["comm","interest","apt"];
+
+  main.innerHTML =
+    '<div class="scorewrap">' +
+      '<div class="composite card">' + dial(r.composite) +
+        '<div class="meta">' +
+          '<span class="eyebrow">Composite · equal thirds</span>' +
+          '<h2>' + esc(c.name) + '</h2>' +
+          '<div class="pills"><span class="pill ' + band(r.composite) + '">' + bandName(r.composite) + '</span>' +
+          '<span class="pill plain">Best fit: ' + esc(r.tracks[0].n) + '</span>' +
+          (c.city ? '<span class="pill plain">' + esc(c.city) + '</span>' : '') + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="thirds">' + vals.map(function(v,i){
+        return '<div class="third card s' + i + '">' +
+          '<div class="top"><span class="name">' + names[i] + '</span><span class="val">' + v + '</span></div>' +
+          '<div class="meter"><i style="width:' + v + '%; background:' + bandColor(v) + '"></i></div>' +
+          '<span class="pill ' + band(v) + '" style="justify-self:start">' + bandName(v) + '</span>' +
+          '<p class="note">' + notes[keys[i]] + '</p></div>';
+      }).join("") + '</div>' +
+
+      '<div class="panel card">' +
+        '<h3>Interest profile</h3>' +
+        '<div class="riasec">' + DIMS.map(function(d){
+          var h = Math.round(r.norm[d.k]*100);
+          return '<div class="d"><div class="col"><i style="height:' + h + '%"></i></div>' +
+            '<div class="cap"><b>' + d.k + '</b>' + d.d + '</div></div>';
+        }).join("") + '</div>' +
+        '<p class="note" style="color:var(--ink-2); font-size:13.5px; margin:0">Holland (RIASEC) dimensions, scored from the eight interest items and mapped to the tracks below.</p>' +
+      '</div>' +
+
+      '<div class="panel card">' +
+        '<h3>Track fit</h3>' +
+        '<div class="tracks">' + r.tracks.slice(0,5).map(function(t){
+          return '<div class="track"><span class="tn">' + t.n + '</span>' +
+            '<div class="meter"><i style="width:' + t.v + '%; background:var(--purple)"></i></div>' +
+            '<span class="tv">' + t.v + '</span></div>';
+        }).join("") + '</div>' +
+      '</div>' +
+
+      '<div class="panel card"><h3>Get these results to PeriFerry</h3>' +
+        '<p class="note" style="margin:0">Nothing leaves this device on its own — pick one:</p>' +
+        '<div class="row">' +
+          '<a class="btn" id="mailBtn" href="' + mailtoHref(c, r) + '">Email results</a>' +
+          '<button class="btn quiet" id="copyBtn" type="button">Copy summary</button>' +
+          '<button class="btn quiet" id="saveBtn" type="button"' + (state.saved?" disabled":"") + '>' + (state.saved?"Saved on this device":"Save on this device") + '</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="navrow">' +
+        '<button class="btn ghost" id="redo">Start another candidate</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById("redo").addEventListener("click", function(){
+    state = Object.assign(state, {view:"intro", step:0, cand:{name:"",contact:"",city:""}, ans:{comm:{},interest:{},apt:{}}, result:null, saved:false});
+    render(); window.scrollTo(0,0);
+  });
+  document.getElementById("copyBtn").addEventListener("click", function(){ copySummary(c, r); });
+  document.getElementById("saveBtn").addEventListener("click", saveRow);
+}
+
+function summaryText(c, r){
+  var lines = [
+    "PeriFerry Candidate Readiness Check",
+    "Candidate: " + c.name + (c.city ? " (" + c.city + ")" : "") + (c.contact ? " — " + c.contact : ""),
+    "Date: " + new Date().toLocaleDateString(undefined,{day:"2-digit",month:"short",year:"numeric"}),
+    "",
+    "Composite: " + r.composite + "/100 — " + bandName(r.composite),
+    "  Communication: " + r.comm + " (" + bandName(r.comm) + ")",
+    "  Interests: " + r.interest + " (" + bandName(r.interest) + ")",
+    "  Aptitude: " + r.apt + " (" + bandName(r.apt) + ")",
+    "",
+    "Best-fit tracks: " + r.tracks.slice(0,3).map(function(t){ return t.n + " (" + t.v + ")"; }).join(", ")
+  ];
+  return lines.join("\n");
+}
+
+function mailtoHref(c, r){
+  var subject = "Readiness check — " + (c.name || "candidate");
+  return "mailto:" + encodeURIComponent(EMAIL_TO) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(summaryText(c, r));
+}
+
+function copySummary(c, r){
+  var text = summaryText(c, r);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ toast("Summary copied"); }, function(){ toast("Couldn't copy — select and copy manually"); });
+  } else {
+    toast("Copy isn't supported in this browser");
+  }
+}
+
+function saveRow(){
+  if(state.saved) return;
+  var r=state.result, c=state.cand, btn=document.getElementById("saveBtn");
+  var row = {
+    id: "r" + Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+    name:c.name, contact:c.contact, city:c.city,
+    createdAt:new Date().toISOString(),
+    comm:r.comm, interest:r.interest, apt:r.apt, composite:r.composite,
+    track:r.tracks[0].n, track2:r.tracks[1].n,
+    riasec:r.norm
+  };
+  var rows = loadHistory();
+  rows.unshift(row);
+  saveHistory(rows);
+  state.rows = rows;
+  state.saved = true;
+  btn.disabled = true; btn.textContent = "Saved on this device";
+  toast("Saved on this device");
+}
+
+/* ============================ ROSTER ============================ */
+
+function visibleRows(){
+  var rows = (state.rows && state.rows.length) ? state.rows : SAMPLES;
+  var f = state.filter, q = f.q.toLowerCase();
+  rows = rows.filter(function(r){
+    if(q && (r.name||"").toLowerCase().indexOf(q)<0 && (r.city||"").toLowerCase().indexOf(q)<0) return false;
+    if(f.band!=="all" && band(r.composite)!==f.band) return false;
+    if(f.track!=="all" && r.track!==f.track) return false;
+    return true;
+  });
+  var s=f.sort;
+  rows.sort(function(a,b){
+    if(s==="date") return (b.createdAt||"").localeCompare(a.createdAt||"");
+    if(s==="name") return (a.name||"").localeCompare(b.name||"");
+    return (b[s]||0)-(a[s]||0) || (a.name||"").localeCompare(b.name||"");
+  });
+  return rows;
+}
+
+function fmtDate(iso){
+  if(!iso) return "—";
+  var d=new Date(iso);
+  return isNaN(d) ? "—" : d.toLocaleDateString(undefined,{day:"2-digit",month:"short"});
+}
+
+function renderRoster(){
+  var rows = visibleRows(), demo = !(state.rows && state.rows.length);
+  var f = state.filter, det = f.detail;
+
+  main.innerHTML =
+    '<div class="intro-head"><span class="eyebrow">Saved on this device</span><h1>Results saved in this browser</h1>' +
+    '<p class="lede">Kept only on this device — not synced anywhere. Export CSV before you switch devices, close this browser\'s data, or hand the laptop back.</p></div>' +
+
+    '<div class="filters">' +
+      '<input type="search" id="q" placeholder="Search name or city" value="' + esc(f.q) + '" aria-label="Search">' +
+      '<div class="chips" role="group" aria-label="Band">' +
+        [["all","All"],["good","Ready"],["warn","Developing"],["crit","Needs support"]].map(function(b){
+          return '<button class="chip" data-band="' + b[0] + '" aria-pressed="' + (f.band===b[0]) + '">' + b[1] + '</button>';
+        }).join("") +
+      '</div>' +
+      '<select id="track" aria-label="Track"><option value="all">All tracks</option>' +
+        TRACKS.map(function(t){ return '<option' + (f.track===t.n?" selected":"") + '>' + t.n + '</option>'; }).join("") +
+      '</select>' +
+      '<select id="sort" aria-label="Sort by">' +
+        [["date","Newest first"],["composite","Composite"],["comm","Communication"],["interest","Interests"],["apt","Aptitude"],["name","Name A–Z"]]
+          .map(function(o){ return '<option value="' + o[0] + '"' + (f.sort===o[0]?" selected":"") + '>' + o[1] + '</option>'; }).join("") +
+      '</select>' +
+      '<label class="toggle"><input type="checkbox" id="detail"' + (det?" checked":"") + '> Section scores</label>' +
+      '<button class="btn quiet" id="export" style="margin-left:auto">Export CSV</button>' +
+    '</div>' +
+
+    '<div class="tablewrap"><table><thead><tr>' +
+      '<th>Candidate</th><th>Date</th>' + (det ? '<th>Comm</th><th>Interest</th><th>Apt</th>' : '') +
+      '<th>Composite</th><th>Band</th><th>Best-fit track</th>' +
+    '</tr></thead><tbody>' +
+      (rows.length ? rows.map(function(r){
+        return '<tr><td><div class="who"><b>' + esc(r.name) + '</b><span>' + esc(r.city || r.contact || "—") + '</span></div></td>' +
+          '<td class="num">' + fmtDate(r.createdAt) + '</td>' +
+          (det ? '<td class="num">' + r.comm + '</td><td class="num">' + r.interest + '</td><td class="num">' + r.apt + '</td>' : '') +
+          '<td class="num"><b>' + r.composite + '</b></td>' +
+          '<td><span class="pill ' + band(r.composite) + '">' + bandName(r.composite) + '</span></td>' +
+          '<td>' + esc(r.track||"—") + '</td></tr>';
+      }).join("") : '<tr><td colspan="' + (det?8:5) + '"><div class="empty"><b>Nothing matches these filters.</b><span>Clear the search or pick a different band.</span></div></td></tr>') +
+    '</tbody></table></div>' +
+    (demo ? '<p class="demo-note">Showing three example rows so the columns make sense. Tap \u201cSave on this device\u201d after a real check to replace them.</p>' : '');
+
+  document.getElementById("q").addEventListener("input", function(e){ state.filter.q=e.target.value; var p=e.target.selectionStart; renderRoster(); var el=document.getElementById("q"); el.focus(); el.setSelectionRange(p,p); });
+  main.querySelectorAll(".chip").forEach(function(b){
+    b.addEventListener("click", function(){ state.filter.band=b.dataset.band; renderRoster(); });
+  });
+  document.getElementById("track").addEventListener("change", function(e){ state.filter.track=e.target.value; renderRoster(); });
+  document.getElementById("sort").addEventListener("change", function(e){ state.filter.sort=e.target.value; renderRoster(); });
+  document.getElementById("detail").addEventListener("change", function(e){ state.filter.detail=e.target.checked; renderRoster(); });
+  document.getElementById("export").addEventListener("click", exportCSV);
+}
+
+function exportCSV(){
+  var rows = visibleRows();
+  var head = ["Name","Contact","City","Date","Communication","Interests","Aptitude","Composite","Band","Best-fit track"];
+  var body = rows.map(function(r){
+    return [r.name, r.contact||"", r.city||"", r.createdAt||"", r.comm, r.interest, r.apt, r.composite, bandName(r.composite), r.track||""];
+  });
+  var csv = [head].concat(body).map(function(line){
+    return line.map(function(v){ v=String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }).join(",");
+  }).join("\n");
+
+  var blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = "readiness-check-" + new Date().toISOString().slice(0,10) + ".csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  toast("Exported " + rows.length + " candidate" + (rows.length===1?"":"s"));
+}
+
+/* ============================ BOOT ============================ */
+
+document.getElementById("tab-take").addEventListener("click", function(){
+  state.view = state.result ? "result" : (state.step>0 ? "assess" : "intro"); render();
+});
+document.getElementById("tab-roster").addEventListener("click", function(){ state.view="roster"; render(); });
+
+render();
+})();
+</script>
+
+</body>
+</html>
