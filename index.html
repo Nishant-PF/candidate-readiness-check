@@ -356,6 +356,34 @@ var SAMPLES = [
   {id:"x3", name:"Example — S. Menon",  city:"Coimbatore", createdAt:"2026-08-31T09:05:00.000Z", comm:38, interest:67, apt:41, composite:49, track:"Logistics & warehouse", demo:true}
 ];
 
+/* ============================ OPTION ORDER ============================ */
+
+// The scoring items (Communication's 5 workplace questions, all 8 Aptitude
+// questions) always defined their best answer first in the source array —
+// fine for editing, bad for a candidate who notices "it's always A". Every
+// candidate gets their own shuffled copy of just those option lists; the
+// self-rating comfort items and the Interests scale keep their natural
+// low-to-high order since that order is part of reading them.
+function shuffle(arr){
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function freshItems(){
+  return {
+    comm: COMM.map(function(q){ return q.self ? q : Object.assign({}, q, {opts: shuffle(q.opts)}); }),
+    apt: APT.map(function(q){ return Object.assign({}, q, {opts: shuffle(q.opts)}); })
+  };
+}
+function itemsFor(key){
+  if (key === "comm") return (state.items && state.items.comm) || COMM;
+  if (key === "apt") return (state.items && state.items.apt) || APT;
+  return INTEREST;
+}
+
 /* ============================ LOCAL HISTORY ============================ */
 
 var HISTORY_KEY = "pf_readiness_rows_v1";
@@ -373,7 +401,7 @@ var state = {
   view:"intro", step:0,
   cand:{name:"", contact:"", city:""},
   ans:{comm:{}, interest:{}, apt:{}},
-  result:null, saved:false,
+  result:null, saved:false, items:null,
   rows:loadHistory(),
   filter:{q:"", band:"all", track:"all", sort:"date", detail:false}
 };
@@ -385,8 +413,9 @@ function pct(sum, max){ return Math.round(sum / max * 100); }
 
 function score(){
   var cs=0, as=0, i;
-  for(i=0;i<COMM.length;i++) cs += (state.ans.comm[i]!=null ? COMM[i].opts[state.ans.comm[i]].s : 0);
-  for(i=0;i<APT.length;i++)  as += (state.ans.apt[i]!=null ? APT[i].opts[state.ans.apt[i]].s : 0);
+  var commItems = itemsFor("comm"), aptItems = itemsFor("apt");
+  for(i=0;i<commItems.length;i++) cs += (state.ans.comm[i]!=null ? commItems[i].opts[state.ans.comm[i]].s : 0);
+  for(i=0;i<aptItems.length;i++)  as += (state.ans.apt[i]!=null ? aptItems[i].opts[state.ans.apt[i]].s : 0);
 
   var vals=[], dim={R:0,I:0,A:0,S:0,E:0,C:0}, cnt={R:0,I:0,A:0,S:0,E:0,C:0};
   for(i=0;i<INTEREST.length;i++){
@@ -472,6 +501,7 @@ function renderIntro(){
     state.cand.contact = document.getElementById("f-contact").value.trim();
     state.cand.city = document.getElementById("f-city").value.trim();
     if(!state.cand.name){ toast("Add the candidate's name first"); return; }
+    state.items = freshItems();
     state.step=0; state.view="assess"; state.saved=false; render(); window.scrollTo(0,0);
   });
 }
@@ -485,12 +515,13 @@ function progressHTML(){
 
 function renderSection(){
   var sec = SECTIONS[state.step], key = sec.id, isInterest = key==="interest";
+  var items = itemsFor(key);
   var html = progressHTML() +
-    '<div class="qhead"><span class="eyebrow">Section ' + (state.step+1) + ' of 3 · ' + sec.items.length + ' questions</span>' +
+    '<div class="qhead"><span class="eyebrow">Section ' + (state.step+1) + ' of 3 · ' + items.length + ' questions</span>' +
     '<h2>' + sec.name + '</h2><p class="lede">' + sec.blurb + '</p></div><div class="qlist">';
 
-  for(var i=0;i<sec.items.length;i++){
-    var it = sec.items[i];
+  for(var i=0;i<items.length;i++){
+    var it = items[i];
     var opts = isInterest ? INT_SCALE : it.opts;
     var cur = state.ans[key][i];
     html += '<div class="q card"><div class="stem"><span class="num">' + (i+1<10?"0":"") + (i+1) + '</span>' +
@@ -506,7 +537,7 @@ function renderSection(){
     html += '</div></div>';
   }
 
-  var n = answered(key), total = sec.items.length;
+  var n = answered(key), total = items.length;
   html += '</div><div class="navrow">' +
     (state.step>0 ? '<button class="btn ghost" id="back">Back</button>' : '<span></span>') +
     '<div class="row"><span class="count' + (n<total?" warn":"") + '" id="cnt">' + n + ' of ' + total + ' answered</span>' +
